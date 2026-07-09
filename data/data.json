@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Mie Gacoan",
+        "category": "Makanan",
+        "price": 10000
+    },
+    {
+        "id": 2,
+        "name": "Mie Hompimpa",
+        "category": "Makanan",
+        "price": 10000
+    },
+        {
+        "id": 3,
+        "name": "Mie Suit",
+        "category": "Makanan",
+        "price": 12000
+    },
+        {
+        "id": 4,
+        "name": "Es Teh",
+        "category": "Minuman",
+        "price": 5000
+    },
+        {
+        "id": 5,
+        "name": "Air Mineral",
+        "category": "Minuman",
+        "price": 6000
+    },
+        {
+        "id": 6,
+        "name": "Es Gobak Sodor",
+        "category": "Minuman",
+        "price": 8000
+    },
+        {
+        "id": 7,
+        "name": "Lemon Tea",
+        "category": "Makanan",
+        "price": 6000
+    },
+        {
+        "id": 8,
+        "name": "Ujang Kedu",
+        "category": "Dimsum",
+        "price": 10000
+    }
+]
