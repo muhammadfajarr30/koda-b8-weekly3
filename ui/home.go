@@ -11,7 +11,7 @@ import (
 
 func Home() {
 	p := message.NewPrinter(language.Indonesian)
-	menus := services.GetMenu()
+	// menus := services.GetMenu()
 	fmt.Println("===== SELAMAT DATANG DI GACOAN =====")
 	fmt.Println("1. MAKANAN")
 	fmt.Println("2. MINUMAN")
@@ -23,7 +23,8 @@ func Home() {
 	case "1":
 		utils.Clear()
 		fmt.Println("======= MAKANAN =======")
-		for idx, menu := range menus {
+		foods := services.GetMenuByCategory("Makanan")
+		for idx, menu := range foods {
 			if menu.Category == "Makanan" {
 				p.Printf("%d. %s - Rp.%d\n", idx+1, menu.Name, menu.Price)
 			}
@@ -32,7 +33,8 @@ func Home() {
 	case "2":
 		utils.Clear()
 		fmt.Println("======= MINUMAN =======")
-		for idx, menu := range menus {
+		drinks := services.GetMenuByCategory("Minuman")
+		for idx, menu := range drinks {
 			if menu.Category == "Minuman" {
 				p.Printf("%d. %s - Rp.%d\n", idx+1, menu.Name, menu.Price)
 			}
@@ -41,7 +43,8 @@ func Home() {
 	case "3":
 		utils.Clear()
 		fmt.Println("======= DIMSUM =======")
-		for idx, menu := range menus {
+		sideDish := services.GetMenuByCategory("Dimsum")
+		for idx, menu := range sideDish {
 			if menu.Category == "Dimsum" {
 				p.Printf("%d. %s - Rp.%d\n", idx+1, menu.Name, menu.Price)
 			}
