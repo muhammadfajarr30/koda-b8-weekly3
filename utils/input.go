@@ -9,7 +9,7 @@ import (
 func Input(opt string) string {
 
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Println(opt)
+	fmt.Print(opt)
 
 	if !scanner.Scan() {
 		if err := scanner.Err(); err != nil {
