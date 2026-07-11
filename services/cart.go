@@ -23,3 +23,14 @@ func AddToCart(menu models.Menu, qty int) {
 func GetOrderdItems() []models.Cart {
 	return CartItems
 }
+func CalculateTotal() int {
+	total := 0
+	for _, item := range CartItems {
+		total += item.Menu.Price * item.Quantity
+	}
+	return total
+}
+
+func ClearCart() {
+	CartItems = []models.Cart{}
+}
