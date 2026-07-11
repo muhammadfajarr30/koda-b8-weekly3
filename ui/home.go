@@ -18,17 +18,20 @@ func Home() {
 		fmt.Println("========SELAMAT DATANG DI GACOAN ========")
 		fmt.Println("1. Order Makanan")
 		fmt.Println("2. Keranjang")
-		fmt.Println("Checkout")
+		fmt.Println("3. Checkout")
 		fmt.Println("------------------------------------------")
 		fmt.Println("0 Exit")
-
 		input := utils.Input("Pilih Menu: ")
 		switch input {
 		case "1":
 			displayCategory()
 		case "2":
 			displayCart()
+		case "3":
+			checkOut()
 		case "0":
+			utils.Clear()
+			fmt.Printf("========================\nSampai Jumpa Kembali!\n========================\n")
 			os.Exit(0)
 		}
 	}
@@ -44,11 +47,57 @@ func displayCart() {
 		fmt.Println("keranjang kamu masih kosong silakan pesan menu dulu")
 	} else {
 
+		fmt.Println("Pesanan Anda: ")
 		for idx, viewCart := range cart {
-			p.Printf("Pesanan anda:\n %d. %s  (%d) - Rp. %d\n", idx+1, viewCart.Menu.Name, viewCart.Quantity, viewCart.Menu.Price)
+			subtotal := viewCart.Menu.Price * viewCart.Quantity
+			p.Printf("\n %d. %s  (%d) - Rp. %d\n ", idx+1, viewCart.Quantity, viewCart.Menu.Name, subtotal)
+
 		}
 	}
-	utils.Input("\nTekan Enter Untuk Kembali... ")
+}
+
+func checkOut() {
+
+	p := message.NewPrinter(language.Indonesian)
+	total := services.CalculateTotal()
+	// utils.Clear()
+	fmt.Println("================ CHECKOUT ================")
+	cart := services.GetOrderdItems()
+	if len(cart) == 0 {
+		fmt.Println("Keranjang kamu masih kosong silakakn pesan menu dulu ")
+
+		utils.Input("tekan enter untuk kembali...")
+		return
+	}
+	fmt.Println("Pesanan Anda:")
+	for idx, viewCart := range cart {
+		subtotal := viewCart.Menu.Price * viewCart.Quantity
+		p.Printf("%d. %s (%d) - Rp%d\n", idx+1, viewCart.Menu.Name, viewCart.Quantity, subtotal)
+	}
+
+	p.Printf("\nTotal : Rp%d\n", total)
+
+	for {
+		input := utils.Input("Bayar : ")
+
+		inputPayment, err := strconv.Atoi(input)
+		if err != nil {
+			fmt.Println("Input harus berupa angka")
+			continue
+		}
+
+		if inputPayment < total {
+			fmt.Println("Uang tidak cukup")
+			continue
+		}
+
+		kembalian := inputPayment - total
+
+		p.Printf("Kembalian : Rp%d\n", kembalian)
+		services.ClearCart()
+		utils.Input("enter untuk kembali...")
+		break
+	}
 }
 
 func displayCategory() {
