@@ -1,7 +1,10 @@
 package services
 
 import (
+	"fmt"
 	"koda-b8-weekly3/models"
+	"sync"
+	"time"
 )
 
 var CartItems []models.Cart
@@ -33,4 +36,25 @@ func CalculateTotal() int {
 
 func ClearCart() {
 	CartItems = []models.Cart{}
+}
+
+var wg = sync.WaitGroup{}
+
+func CookMeal() {
+	for _, item := range CartItems {
+		wg.Add(1)
+
+		go func(item models.Cart) {
+			defer wg.Done()
+
+			fmt.Printf("Menyiapkan %s...\n", item.Menu.Name)
+			time.Sleep(time.Duration(item.Quantity) * time.Second)
+
+			fmt.Println()
+			fmt.Printf("%s selesai!\n", item.Menu.Name)
+		}(item)
+	}
+
+	wg.Wait()
+	fmt.Println("\nSemua pesanan selesai.")
 }

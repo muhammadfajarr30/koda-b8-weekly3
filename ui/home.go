@@ -94,6 +94,8 @@ func checkOut() {
 		kembalian := inputPayment - total
 
 		p.Printf("Kembalian : Rp%d\n", kembalian)
+
+		services.CookMeal()
 		services.ClearCart()
 		utils.Input("enter untuk kembali...")
 		break
