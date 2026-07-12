@@ -50,10 +50,11 @@ func displayCart() {
 		fmt.Println("Pesanan Anda: ")
 		for idx, viewCart := range cart {
 			subtotal := viewCart.Menu.Price * viewCart.Quantity
-			p.Printf("\n %d. %s  (%d) - Rp. %d\n ", idx+1, viewCart.Quantity, viewCart.Menu.Name, subtotal)
+			p.Printf("\n %d. %s  (%d) - Rp. %d\n ", idx+1, viewCart.Menu.Name, viewCart.Quantity, subtotal)
 
 		}
 	}
+	utils.Input("\nTekan Enter untuk kembali...")
 }
 
 func checkOut() {
@@ -65,7 +66,6 @@ func checkOut() {
 	cart := services.GetOrderdItems()
 	if len(cart) == 0 {
 		fmt.Println("Keranjang kamu masih kosong silakakn pesan menu dulu ")
-
 		utils.Input("tekan enter untuk kembali...")
 		return
 	}
@@ -127,16 +127,21 @@ func displayCategory() {
 		menuIndex, err := strconv.Atoi(inputMenu)
 		if err != nil {
 			fmt.Println("Input harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
 			return
 		}
 		if menuIndex < 1 || menuIndex > len(foods) {
 			fmt.Println("Pilh sesuai dengan menu yang ada")
+			utils.Input("Tekan Enter untuk kembali...")
+			return
 		}
 		selectedMenu := foods[menuIndex-1]
 		qtyInput := utils.Input("Jumlah: ")
 		qty, err := strconv.Atoi(qtyInput)
 		if err != nil {
 			fmt.Print("Jumlah harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
+
 		}
 		services.AddToCart(selectedMenu, qty)
 	case "2":
@@ -152,16 +157,24 @@ func displayCategory() {
 		menuIndex, err := strconv.Atoi(inputMenu)
 		if err != nil {
 			fmt.Println("Input harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
+
 			return
 		}
 		if menuIndex < 1 || menuIndex > len(drinks) {
 			fmt.Println("Pilh sesuai dengan menu yang ada")
+			utils.Input("Tekan Enter untuk kembali...")
+
+			return
 		}
 		selectedMenu := drinks[menuIndex-1]
 		qtyInput := utils.Input("Jumlah: ")
 		qty, err := strconv.Atoi(qtyInput)
 		if err != nil {
 			fmt.Print("Jumlah harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
+
+			return
 		}
 		services.AddToCart(selectedMenu, qty)
 	case "3":
@@ -177,20 +190,28 @@ func displayCategory() {
 		menuIndex, err := strconv.Atoi(inputMenu)
 		if err != nil {
 			fmt.Println("Input harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
+
 			return
 		}
 		if menuIndex < 1 || menuIndex > len(sideDish) {
 			fmt.Println("Pilh sesuai dengan menu yang ada")
+			utils.Input("Tekan Enter untuk kembali...")
+
+			return
 		}
 		selectedMenu := sideDish[menuIndex-1]
 		qtyInput := utils.Input("Jumlah: ")
 		qty, err := strconv.Atoi(qtyInput)
 		if err != nil {
 			fmt.Print("Jumlah harus berupa angka")
+			utils.Input("Tekan Enter untuk kembali...")
+
 		}
 		services.AddToCart(selectedMenu, qty)
 
 	default:
 		fmt.Println("Pilih sesuai menu")
+		return
 	}
 }
